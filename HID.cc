@@ -122,7 +122,7 @@ HID::HID(unsigned short vendorId, unsigned short productId, wchar_t* serialNumbe
 
   if (!_hidHandle) {
     ostringstream os;
-    os << "cannot open device with vendor id 0x" << hex << vendorId << " and product id 0x" << productId;
+    os << "Cannot open device with vendor id 0x" << hex << vendorId << " and product id 0x" << productId;
     throw JSException(os.str());
   }
 }
@@ -133,7 +133,7 @@ HID::HID(const char* path)
 
   if (!_hidHandle) {
     ostringstream os;
-    os << "cannot open device with path " << path;
+    os << "Cannot open device with path " << path;
     throw JSException(os.str());
   }
 }
@@ -186,7 +186,7 @@ HID::recvAsync(uv_work_t* req)
   unsigned char buf[READ_BUFF_MAXSIZE];
   int len = hid_read(hid->_hidHandle, buf, sizeof buf);
   if (len < 0) {
-    iocb->_error = new JSException("could not read from HID device");
+    iocb->_error = new JSException("Could not read from HID device");
   } else {
     iocb->_data = vector<unsigned char>(buf, buf + len);
   }
@@ -248,7 +248,7 @@ NAN_METHOD(HID::read)
 
   if (info.Length() != 1
       || !info[0]->IsFunction()) {
-    return Nan::ThrowError("need one callback function argument in read");
+    return Nan::ThrowError("Need one callback function argument in read");
   }
 
   HID* hid = Nan::ObjectWrap::Unwrap<HID>(info.This());
@@ -266,7 +266,7 @@ NAN_METHOD(HID::readSync)
   Nan::HandleScope scope;
 
   if (info.Length() != 0) {
-    return Nan::ThrowError("readSync need zero length parameter");
+    return Nan::ThrowError("ReadSync need zero length parameter");
   }
 
   HID* hid = Nan::ObjectWrap::Unwrap<HID>(info.This());
@@ -274,7 +274,7 @@ NAN_METHOD(HID::readSync)
   int returnedLength = hid_read(hid->_hidHandle, buff_read, sizeof buff_read);
 
   if (returnedLength == -1) {
-    return Nan::ThrowError("could not read data from device");
+    return Nan::ThrowError("Could not read data from device");
   }
   Local<Array> retval = Nan::New<Array>();
 
@@ -289,7 +289,7 @@ NAN_METHOD(HID::readTimeout)
   Nan::HandleScope scope;
 
   if (info.Length() != 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError("readTimeout needs time out parameter");
+    return Nan::ThrowError("ReadTimeout needs time out parameter");
   }
 
   HID* hid = Nan::ObjectWrap::Unwrap<HID>(info.This());
@@ -299,7 +299,7 @@ NAN_METHOD(HID::readTimeout)
   int returnedLength = hid_read_timeout(hid->_hidHandle, buff_read, sizeof buff_read, timeout);
 
   if (returnedLength == -1) {
-    return Nan::ThrowError("could not read data from device");
+    return Nan::ThrowError("Could not read data from device");
   }
   Local<Array> retval = Nan::New<Array>();
 
@@ -314,7 +314,7 @@ NAN_METHOD(HID::getFeatureReport)
   Nan::HandleScope scope;
 
   if (info.Length() != 2 || !info[1]->IsUint32() ) {
-    return Nan::ThrowError("need report ID and length parameters in getFeatureReport");
+    return Nan::ThrowError("Need report ID and length parameters in getFeatureReport");
   }
 
   const uint8_t reportId = Nan::To<uint32_t>(info[0]).FromJust();
@@ -333,7 +333,7 @@ NAN_METHOD(HID::getFeatureReport)
 
   if (returnedLength == -1) {
     delete[] buf;
-    return Nan::ThrowError("could not get feature report from device");
+    return Nan::ThrowError("Could not get feature report from device");
   }
   Local<Array> retval = Nan::New<Array>();
 
@@ -350,7 +350,7 @@ NAN_METHOD(HID::sendFeatureReport)
   Nan::HandleScope scope;
 
   if (info.Length() != 1){
-    return Nan::ThrowError("need report (including id in first byte) only in sendFeatureReport");
+    return Nan::ThrowError("Need report (including id in first byte) only in sendFeatureReport");
   }
 
   HID* hid = Nan::ObjectWrap::Unwrap<HID>(info.This());
@@ -359,7 +359,7 @@ NAN_METHOD(HID::sendFeatureReport)
   Local<Array> messageArray = Local<Array>::Cast(info[0]);
   for (unsigned i = 0; i < messageArray->Length(); i++) {
     if (!messageArray->Get(i)->IsNumber()) {
-      throw JSException("unexpected array element in array to send, expecting only integers");
+      throw JSException("Unexpected array element in array to send, expecting only integers");
     }
     message.push_back((unsigned char) messageArray->Get(i)->Int32Value());
   }
@@ -375,7 +375,7 @@ NAN_METHOD(HID::sendFeatureReport)
   int returnedLength = hid_send_feature_report(hid->_hidHandle, buf, message.size());
   delete[] buf;
   if (returnedLength == -1) { // Not sure if there would ever be a valid return value of 0.
-    return Nan::ThrowError("could not send feature report to device");
+    return Nan::ThrowError("Could not send feature report to device");
   }
 
   info.GetReturnValue().Set(Nan::New<Integer>(returnedLength));
@@ -464,7 +464,7 @@ NAN_METHOD(HID::write)
     Local<Array> messageArray = Local<Array>::Cast(info[0]);
     for (unsigned i = 0; i < messageArray->Length(); i++) {
       if (!messageArray->Get(i)->IsNumber()) {
-        throw JSException("unexpected array element in array to send, expecting only integers");
+        throw JSException("Unexpected array element in array to send, expecting only integers");
       }
       message.push_back((unsigned char) messageArray->Get(i)->Int32Value());
     }
@@ -534,7 +534,7 @@ NAN_METHOD(HID::devices)
       productId = info[1]->Int32Value();
       break;
     default:
-      throw JSException("unexpected number of arguments to HID.devices() call, expecting either no arguments or vendor and product ID");
+      throw JSException("Unexpected number of arguments to HID.devices() call, expecting either no arguments or vendor and product ID");
     }
   }
   catch (JSException& e) {
@@ -578,7 +578,7 @@ static void
 deinitialize(void*)
 {
   if (hid_exit()) {
-    return Nan::ThrowError("cannot uninitialize hidapi (hid_exit failed)");
+    return Nan::ThrowError("Cannot uninitialize hidapi (hid_exit failed)");
   }
 }
 
@@ -586,7 +586,7 @@ void
 HID::Initialize(Local<Object> target)
 {
   if (hid_init()) {
-    return Nan::ThrowError("cannot initialize hidapi (hid_init failed)");
+    return Nan::ThrowError("Cannot initialize hidapi (hid_init failed)");
   }
 
   node::AtExit(deinitialize, 0);

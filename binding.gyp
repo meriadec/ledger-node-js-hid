@@ -14,16 +14,9 @@
           ]
         }],
         [ 'OS=="linux"', {
-          'conditions': [
-            [ 'driver=="libusb"', {
-              'sources': [ 'hidapi/libusb/hid.c' ],
-              'include_dirs+': [
-                '/usr/include/libusb-1.0/'
-              ]
-            }],
-            [ 'driver=="hidraw"', {
-              'sources': [ 'hidapi/linux/hid.c' ]
-            }]
+          'sources': [ 'hidapi/libusb/hid.c' ],
+          'include_dirs+': [
+            '/usr/include/libusb-1.0/'
           ]
         }],
         [ 'OS=="win"', {
@@ -56,53 +49,6 @@
       ]
     },
     {
-      'target_name': 'hidapi-linux-hidraw',
-      'conditions': [
-        [ 'OS=="linux"', {
-          'type': 'static_library',
-          'sources': [ 'hidapi/linux/hid.c' ],
-          'direct_dependent_settings': {
-            'include_dirs': [
-              'hidapi/hidapi',
-              "<!(node -e \"require('nan')\")"
-            ]
-          },
-          'include_dirs': [
-            'hidapi/hidapi'
-          ],
-          'defines': [
-            '_LARGEFILE_SOURCE',
-            '_FILE_OFFSET_BITS=64'
-          ],
-          'cflags': ['-g'],
-          'cflags!': [
-            '-ansi'
-          ]
-        }],
-      ],
-    },
-    {
-      'target_name': 'HID-hidraw',
-      'conditions': [
-        [ 'OS=="linux"', {
-          'sources': [ 'HID.cc' ],
-          'dependencies': ['hidapi-linux-hidraw'],
-          'defines': [
-            '_LARGEFILE_SOURCE',
-            '_FILE_OFFSET_BITS=64'
-          ],
-          'libraries': [
-            '-ludev',
-            '-lusb-1.0'
-          ],
-          'cflags!': ['-ansi', '-fno-exceptions' ],
-          'cflags_cc!': [ '-fno-exceptions' ],
-          'cflags': ['-g', '-exceptions'],
-          'cflags_cc': ['-g', '-exceptions']
-        }]
-      ],
-    },
-    {
       'target_name': 'HID',
       'sources': [ 'HID.cc' ],
       'dependencies': ['hidapi'],
@@ -125,19 +71,9 @@
           }
         }],
         [ 'OS=="linux"', {
-          'conditions': [
-            [ 'driver=="libusb"', {
-              'libraries': [
-                '-lusb-1.0'
-              ]
-            }],
-            [ 'driver=="hidraw"', {
-              'libraries': [
-                '-ludev',
-                '-lusb-1.0'
-              ]
-            }]
-          ],
+          'libraries': [
+            '-lusb-1.0'
+          ]
         }],
         [ 'OS=="win"', {
           'msvs_settings': {

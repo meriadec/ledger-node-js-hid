@@ -85,7 +85,7 @@
       'target_name': 'HID-hidraw',
       'conditions': [
         [ 'OS=="linux"', {
-          'sources': [ 'src/HID.cc' ],
+          'sources': [ 'HID.cc' ],
           'dependencies': ['hidapi-linux-hidraw'],
           'defines': [
             '_LARGEFILE_SOURCE',
@@ -104,7 +104,7 @@
     },
     {
       'target_name': 'HID',
-      'sources': [ 'src/HID.cc' ],
+      'sources': [ 'HID.cc' ],
       'dependencies': ['hidapi'],
       'defines': [
         '_LARGEFILE_SOURCE',

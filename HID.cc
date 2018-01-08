@@ -60,6 +60,7 @@ class HID
 public:
   static void Initialize(Local<Object> target);
   static NAN_METHOD(devices);
+  static NAN_METHOD(on);
 
   typedef vector<unsigned char> databuf_t;
 
@@ -75,6 +76,7 @@ private:
   ~HID() { close(); }
 
   static NAN_METHOD(New);
+
   static NAN_METHOD(read);
   static NAN_METHOD(write);
   static NAN_METHOD(close);
@@ -86,10 +88,8 @@ private:
   static NAN_METHOD(sendFeatureReport);
   static NAN_METHOD(getDeviceInfo);
 
-
   static void recvAsync(uv_work_t* req);
   static void recvAsyncDone(uv_work_t* req);
-
 
   struct ReceiveIOCB {
     ReceiveIOCB(HID* hid, Nan::Callback *callback)
@@ -610,10 +610,10 @@ HID::Initialize(Local<Object> target)
   target->Set(Nan::New<String>("HID").ToLocalChecked(), hidTemplate->GetFunction());
 
   target->Set(Nan::New<String>("devices").ToLocalChecked(), Nan::New<FunctionTemplate>(HID::devices)->GetFunction());
+  target->Set(Nan::New<String>("on").ToLocalChecked(), Nan::New<FunctionTemplate>(HID::on)->GetFunction());
 }
 
 extern "C" {
-
   static void init (Local<Object> target)
   {
     Nan::HandleScope scope;

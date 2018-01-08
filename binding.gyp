@@ -31,7 +31,7 @@
           'msvs_settings': {
             'VCLinkerTool': {
               'AdditionalDependencies': [
-                'setupapi.lib',
+                'setupapi.lib'
               ]
             }
           }
@@ -48,7 +48,7 @@
       ],
       'defines': [
         '_LARGEFILE_SOURCE',
-        '_FILE_OFFSET_BITS=64',
+        '_FILE_OFFSET_BITS=64'
       ],
       'cflags': ['-g'],
       'cflags!': [
@@ -72,7 +72,7 @@
           ],
           'defines': [
             '_LARGEFILE_SOURCE',
-            '_FILE_OFFSET_BITS=64',
+            '_FILE_OFFSET_BITS=64'
           ],
           'cflags': ['-g'],
           'cflags!': [
@@ -89,7 +89,7 @@
           'dependencies': ['hidapi-linux-hidraw'],
           'defines': [
             '_LARGEFILE_SOURCE',
-            '_FILE_OFFSET_BITS=64',
+            '_FILE_OFFSET_BITS=64'
           ],
           'libraries': [
             '-ludev',
@@ -108,7 +108,7 @@
       'dependencies': ['hidapi'],
       'defines': [
         '_LARGEFILE_SOURCE',
-        '_FILE_OFFSET_BITS=64',
+        '_FILE_OFFSET_BITS=64'
       ],
       'conditions': [
         [ 'OS=="mac"', {

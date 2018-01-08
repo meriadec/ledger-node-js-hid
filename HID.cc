@@ -610,7 +610,6 @@ HID::Initialize(Local<Object> target)
   target->Set(Nan::New<String>("HID").ToLocalChecked(), hidTemplate->GetFunction());
 
   target->Set(Nan::New<String>("devices").ToLocalChecked(), Nan::New<FunctionTemplate>(HID::devices)->GetFunction());
-  target->Set(Nan::New<String>("on").ToLocalChecked(), Nan::New<FunctionTemplate>(HID::on)->GetFunction());
 }
 
 extern "C" {

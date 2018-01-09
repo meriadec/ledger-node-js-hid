@@ -9,7 +9,7 @@ const listenDevices = {
   start: (delay = 100) => {
     let listDevices = devices()
 
-    const flatDevice = device => `${device.vendorId}-${device.productId}`
+    const flatDevice = device => device.path
 
     const getFlatDevices = () => [...new Set(devices().map(device => flatDevice(device)))]
     const getDeviceByIds = ids => listDevices.find(device => flatDevice(device) === ids)

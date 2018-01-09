@@ -1,5 +1,6 @@
 {
   "name": "ledger-node-js-hid",
+  "version": "0.1.0",
   "main": "./index.js",
   "scripts": {
     "install": "node-gyp rebuild"

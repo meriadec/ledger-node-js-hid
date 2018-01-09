@@ -5,9 +5,16 @@ myEE.setMaxListeners(0)
 const { devices, HID } = require('./build/Release/HID')
 
 let timeoutDetection = null
+let isListenDevices = false
 
 const listenDevices = {
   start: (delay = 100) => {
+    if (isListenDevices) {
+      return
+    }
+
+    isListenDevices = true
+
     let listDevices = devices()
 
     const flatDevice = device => device.path
@@ -42,7 +49,10 @@ const listenDevices = {
 
     checkDevices()
   },
-  stop: () => clearTimeout(timeoutDetection),
+  stop: () => {
+    isListenDevices = false
+    clearTimeout(timeoutDetection)
+  },
   events: myEE,
 }
 

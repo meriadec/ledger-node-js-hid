@@ -13,7 +13,7 @@ const listenDevices = {
     const flatDevice = device => device.path
 
     const getFlatDevices = () => [...new Set(devices().map(device => flatDevice(device)))]
-    const getDeviceByIds = ids => listDevices.find(device => flatDevice(device) === ids)
+    const getDeviceByPath = ids => listDevices.find(device => flatDevice(device) === ids)
 
     let lastDevices = getFlatDevices()
 
@@ -26,12 +26,12 @@ const listenDevices = {
 
         if (addDevice) {
           listDevices = devices()
-          myEE.emit('add', getDeviceByIds(addDevice))
+          myEE.emit('add', getDeviceByPath(addDevice))
         }
 
         if (removeDevice) {
-          myEE.emit('remove', getDeviceByIds(removeDevice))
-          listDevices = listDevices.filter(device => flatDevice(device) === removeDevice)
+          myEE.emit('remove', getDeviceByPath(removeDevice))
+          listDevices = listDevices.filter(device => flatDevice(device) !== removeDevice)
         }
 
         lastDevices = currentDevices

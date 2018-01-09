@@ -1,5 +1,6 @@
 const EventEmitter = require('events')
 const myEE = new EventEmitter()
+myEE.setMaxListeners(0)
 
 const { devices, HID } = require('./build/Release/HID')
 
@@ -42,11 +43,11 @@ const listenDevices = {
     checkDevices()
   },
   stop: () => clearTimeout(timeoutDetection),
+  events: myEE,
 }
 
 module.exports = {
   devices,
   HID,
   listenDevices,
-  on: myEE,
 }

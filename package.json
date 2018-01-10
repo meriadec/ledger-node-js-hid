@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "main": "./index.js",
   "scripts": {
-    "install": "node-gyp rebuild"
+    "gypclean": "node-gyp clean",
+    "install": "node-gyp rebuild",
+    "prepublish": "git submodule update --init",
+    "gypbuild": "node-gyp build",
+    "gypconfigure": "node-gyp configure"
   },
   "devDependencies": {
     "nan": "^2.8.0",

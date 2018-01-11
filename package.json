@@ -1,5 +1,6 @@
 {
   "name": "@ledgerhq/node-hid",
+  "license": "MIT",
   "version": "0.1.0",
   "description": "Ledger Node implementation of hidapi",
   "keywords": [

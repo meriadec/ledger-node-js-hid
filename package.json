@@ -1,6 +1,23 @@
 {
   "name": "@ledgerhq/node-hid",
   "version": "0.1.0",
+  "description": "Ledger Node implementation of hidapi",
+  "keywords": [
+    "Ledger",
+    "node",
+    "hidapi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LedgerHQ/ledger-node-js-hid"
+  },
+  "bugs": {
+    "url": "https://github.com/LedgerHQ/ledger-node-js-hid/issues"
+  },
+  "homepage": "https://github.com/LedgerHQ/ledger-node-js-hid",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./index.js",
   "scripts": {
     "gypbuild": "node-gyp build",

@@ -6,8 +6,7 @@
     "gypbuild": "node-gyp build",
     "gypclean": "node-gyp clean",
     "gypconfigure": "node-gyp configure",
-    "install": "node-gyp rebuild",
-    "postinstall": "git submodule update --init"
+    "install": "git submodule update --init && node-gyp rebuild"
   },
   "devDependencies": {
     "nan": "^2.8.0",

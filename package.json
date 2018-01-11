@@ -15,9 +15,6 @@
     "url": "https://github.com/LedgerHQ/ledger-node-js-hid/issues"
   },
   "homepage": "https://github.com/LedgerHQ/ledger-node-js-hid",
-  "publishConfig": {
-    "access": "public"
-  },
   "main": "./index.js",
   "scripts": {
     "gypbuild": "node-gyp build",

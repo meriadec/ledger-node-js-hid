@@ -6,7 +6,7 @@
     "gypbuild": "node-gyp build",
     "gypclean": "node-gyp clean",
     "gypconfigure": "node-gyp configure",
-    "install": "git submodule update --init && node-gyp rebuild",
+    "install": "node-gyp rebuild",
     "postinstall": "git submodule update --init"
   },
   "devDependencies": {
